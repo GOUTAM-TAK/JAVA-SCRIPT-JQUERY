@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Task Manager</title>
+    <style>
+        h3 {
+            background-color: black;
+            color: aliceblue;
+        }
+        .maindiv {
+            background-color: dodgerblue;
+            display: flex;
+            height: 100vh;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px;
+        }
+        .div1, .div2 {
+            width: 48%;
+            height: 80vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+        }
+        .div1 input {
+            margin-bottom: 10px;
+        }
+        .div1 button {
+            padding: 10px;
+            cursor: pointer;
+        }
+        .div2 h1, .div2 h2, .div2 h3 {
+            color: aliceblue;
+        }
+        ul {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+        li {
+            margin: 5px 0;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+    <div class="maindiv">
+        <div class="div1">
+            <form>
+                <input type="text" name="task" id="taskname" placeholder="Enter task name" autofocus required />
+                <button type="button" onclick="AddTask()">Add Task</button>
+            </form>
+            <span id="result"></span>
+        </div>
+        <div class="div2">
+            <h1>TO DO LIST</h1>
+            <h2>with LOCAL STORAGE</h2>
+            <h3>HTML CSS & Javascript</h3>
+        </div>
+    </div>
+    <script>
+        const LOCAL_STORAGE_TASKARR = 'taskarr';
+        let taskArr = JSON.parse(localStorage.getItem(LOCAL_STORAGE_TASKARR)) || [];
+
+        const AddTask = () => {
+            let taskName = document.getElementById("taskname").value;
+            if (taskName === "") {
+                alert('Please enter a valid name for the Task');
+                return false;
+            } else {
+                taskArr.push(taskName);
+                localStorage.setItem(LOCAL_STORAGE_TASKARR, JSON.stringify(taskArr));
+                Display();
+            }
+        };
+
+        const Display = () => {
+            var str = "<ul>";
+            taskArr.forEach((element, index) => {
+                str += `<li >${element}&nbsp;&nbsp;<input type='button' onclick= EditTask(${index}) value='Edit' ></input>&nbsp;&nbsp;<input type='button' onclick= DeleteTask(${index}) value='Delete' ></input></li>`;
+                
+            });
+            str += "</ul>";
+            document.getElementById("result").innerHTML = str;
+        };
+        const EditTask = (index) => {
+            let newTaskName = prompt("Enter new task name", taskArr[index]);
+            if (newTaskName !== null && newTaskName !== "") {
+                taskArr[index] = newTaskName;
+                localStorage.setItem(LOCAL_STORAGE_TASKARR, JSON.stringify(taskArr));
+                Display();
+            }
+        };
+        const DeleteTask = (index) => {
+            taskArr.splice(index, 1);
+            localStorage.setItem(LOCAL_STORAGE_TASKARR, JSON.stringify(taskArr));
+            Display();
+        };
+
+        Display();
+    </script>
+</body>
+</html>

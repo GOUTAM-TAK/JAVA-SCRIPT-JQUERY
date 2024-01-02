@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mad Libs</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+        }
+
+        #madLibsContainer {
+            background-color: #8ae295;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            text-align: center;
+        }
+
+        label {
+            display: block;
+            margin: 10px 0;
+        }
+
+        input {
+            width: 100%;
+            padding: 8px;
+            margin-top: 4px;
+            box-sizing: border-box;
+        }
+
+        #tellStoryBtn {
+            background-color: #4CAF50;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            margin-top: 10px;
+        }
+
+        #storyResult {
+            display: none;
+            margin-top: 20px;
+        }
+
+        #dialectBox {
+      
+            padding: 10px;
+            border-radius: 5px;
+            margin-top: 10px;
+            text-align: center;
+        }
+    </style>
+</head>
+<body style="background-color: #4CAF50;">
+    <h1 style="align-items: center;">Mad Libs</h1>
+<div id="madLibsContainer">
+   
+    <label for="personName">Person Name:</label>
+    <input type="text" id="personName">
+
+    <label for="character">Character:</label>
+    <input type="text" id="character">
+
+    <label for="adverb">Adverb:</label>
+    <input type="text" id="adverb">
+
+    <label for="adjective">Adjective:</label>
+    <input type="text" id="adjective">
+
+    <button id="tellStoryBtn">Tell Story</button>
+
+   
+</div>
+<div id="storyResult" style="background-color: #8ae295;">
+    <div id="dialectBox"></div>
+    <div id="summary"></div>
+</div>
+
+<script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+<script>
+    $(document).ready(function () {
+        $("#tellStoryBtn").on("click", function () {
+         
+            var personName = $("#personName").val();
+            var character = $("#character").val();
+            var adverb = $("#adverb").val();
+            var adjective = $("#adjective").val();
+
+            var story = "Wendy's Crazy MadLibs Story"
+            var summary = "One day, my friend "+personName + " was visiting New York and ran into " 
+             + character+"."+personName + " ran  "
+              + adverb +" to meet "+character+ ". But "+character+" turned out to be very "+adjective+" and "+personName+ " did not enjoy the meeting .";
+
+       
+            $("#dialectBox").text(story);
+            $("#summary").text(summary);
+            $("#storyResult").show();
+        });
+    });
+</script>
+
+</body>
+</html>
